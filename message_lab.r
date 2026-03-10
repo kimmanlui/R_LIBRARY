@@ -41,7 +41,7 @@ getChineseMsg=function(res, messageV='', type='message', lowerV=0.25, upperV=0.7
     
 	if  (any (as.vector( res[ grepl(">=", res$Prediction), 'Odd']<lowerV) ))
 	{ 
-        M1="\n上漲高於#TIME#最高價的機率為低. \n"
+        M1="上漲高於#TIME#最高價的機率為低.\n"
         M1=gsub('#TIME#', M1TIME, M1)
 		messageV=paste0(messageV,M1)
         downcnt=downcnt+1
@@ -50,7 +50,7 @@ getChineseMsg=function(res, messageV='', type='message', lowerV=0.25, upperV=0.7
 
 	if  (any (as.vector( res[ grepl(">=", res$Prediction), 'Odd'] >upperV) ))
 	{
-		M1="\n上漲高於#TIME#最高價的機率為高. \n"
+		M1="上漲高於#TIME#最高價的機率為高.\n"
         M1=gsub('#TIME#', M1TIME, M1)
 		messageV=paste0(messageV,M1)
         upcnt=upcnt+1
@@ -59,7 +59,7 @@ getChineseMsg=function(res, messageV='', type='message', lowerV=0.25, upperV=0.7
      
 	if  (any (as.vector( res[ grepl("<=", res$Prediction), 'Odd']<lowerV) ))
 	{
-		M1="\n下跌低於#TIME#最低價的機率為低. \n"
+		M1="下跌低於#TIME#最低價的機率為低. \n"
         M1=gsub('#TIME#', M1TIME, M1)
 		messageV=paste0(messageV,M1)
         upcnt=upcnt+1
@@ -67,7 +67,7 @@ getChineseMsg=function(res, messageV='', type='message', lowerV=0.25, upperV=0.7
 	}
 	if  (any (as.vector(res[ grepl("<=", res$Prediction) , 'Odd']>upperV) ))
 	{
-		M1="\n下跌低於#TIME#最低價的機率為高. \n"
+		M1="下跌低於#TIME#最低價的機率為高. \n"
         M1=gsub('#TIME#', M1TIME, M1)
 		messageV=paste0(messageV,M1)
         downcnt=downcnt+1
@@ -125,3 +125,4 @@ getChineseTitle=function()
 	return(msg)
 
 }
+
