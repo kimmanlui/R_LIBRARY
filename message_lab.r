@@ -121,6 +121,7 @@ getPastPerfText=function()
 
 getChineseTitle=function()
 {
-    msg='自家研發2.0'
+    msg='自家研發2.1'
 	return(msg)
+
 }
