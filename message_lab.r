@@ -114,9 +114,13 @@ getPredictionText=function()
 {
  return("預測")
 }
-getPastPerfText=function() 
+getPastPerfText=function(numday=0) 
 {
-    return("過往預測表現")
+	if (numday!=0)
+	{
+		return(paste("過往",numday,"天預測表現"))
+	}
+	return("過往預測表現")
 }
 
 getChineseTitle=function()
@@ -125,4 +129,5 @@ getChineseTitle=function()
 	return(msg)
 
 }
+
 
