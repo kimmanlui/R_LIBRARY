@@ -16,7 +16,7 @@ checkdf_return_string=function(df, actualColname='pv', expectColname='expected')
 }
 
 
-checkTestResult=function(df, actualColname='actual', expectedColname='expected')
+OLD_checkTestResult=function(df, actualColname='actual', expectedColname='expected')
 {
     hit_for_not=0
     total_for_not=0
@@ -53,7 +53,7 @@ checkTestResultSingle=function(actual, expected)
     return(0)
 }
 
-prepare_backtest_result_for_daily22=function(hsi_data_backtest)
+OLD_prepare_backtest_result_for_daily22=function(hsi_data_backtest)
 {
     backtest_res=NULL 
     for (i in 2:nrow(hsi_data_backtest))
@@ -81,7 +81,7 @@ prepare_backtest_result_for_daily22=function(hsi_data_backtest)
     return(backtest_res)
 }
 
-processTestResult=function(backtest_res)
+OLD_processTestResult=function(backtest_res)
 {
     ExpectedZeroCount=nrow(backtest_res[backtest_res$expected==0,])
     backtest_res_non_zero=backtest_res[backtest_res$expected!=0,]
