@@ -1,17 +1,17 @@
-checkdf_return_string=function(df, actualColname='pv', expectColname='expected')
+checkdf_return_string=function (df, actualColname = "pv", expectColname = "expected", debug=0) 
 {
-    df=df[order(df$date,decreasing = TRUE ), ]
-   resString=NULL
-   for (i in 1:nrow(df))
-    {
-      actual=df[i, 'pv']
-      expect=df[i, 'expected']
-      #print(paste(actual, expect))
-      resString=c(resString, checkTestResultSingle(actual, expect)) 
+    df = df[order(df$date, decreasing = TRUE), ]
+    resString = NULL
+    for (i in 1:nrow(df)) {
+        actual = df[i, actualColname]
+        expect = df[i, expectColname]
+        resultSingle=checkTestResultSingle(actual, expect)
+        if (debug==1) print(data.frame(actual, expect, resultSingle))
+        resString = c(resString, resultSingle)
+        
     }
-    #print(resString)
-    retV=paste(resString, collapse="")
-    retV=gsub('NA','u', gsub('0', 'x', gsub('1','o', retV)))
+    retV = paste(resString, collapse = "")
+    retV = gsub("NA", "u", gsub("0", "x", gsub("1", "o", retV)))
     return(retV)
 }
 
