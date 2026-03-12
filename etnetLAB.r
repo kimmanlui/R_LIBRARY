@@ -6,15 +6,20 @@ library(XML)
 #library(dbx)
 library(stringr)
 
-sleep_until <- function(target_time) {
+sleep_until <- function(target_time, ignoreAfter=1) {
   # Get the current time in Hong Kong Time (HKT)
   current_time_hkt <- with_tz(Sys.time(), tzone = "Asia/Hong_Kong")  # Assuming system time is in UTC
-  
+
+    
   # Convert the target time (local time) to a POSIXct object in HKT
   target_time_today <- as.POSIXct(paste(as.Date(current_time_hkt), target_time), tz = "Asia/Hong_Kong")
   
   # If the target time has already passed today, set it for tomorrow
   if (target_time_today < current_time_hkt) {
+    if (ignoreAfter==1) 
+    {
+       return(cat(paste0("The current time is after ",target_time,". No Sleep!!!\n")) )
+    }
     target_time_today <- target_time_today + days(1)
   }
   
@@ -22,10 +27,12 @@ sleep_until <- function(target_time) {
   sleep_duration <- as.numeric(difftime(target_time_today, current_time_hkt, units = "secs"))
  
   # Sleep for the calculated duration
+
   cat(paste("Sleeping for", sleep_duration, "seconds until", target_time_today, "\n"))
   Sys.sleep(sleep_duration)
   cat("Woke up!\n")
 }
+
 
 getET_ohlc=function () 
 {
@@ -243,3 +250,4 @@ mail_blastula_old=function (subject = subject, attachmentList = NULL, addr = mya
     }
     return(actualtry)
 }
+
