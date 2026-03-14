@@ -34,6 +34,23 @@ sleep_until <- function(target_time, ignoreAfter=1) {
 }
 
 
+gethsi_rt=function()
+{
+  hsi_rt=getET_ohlc()
+  # Convert date to a Date object if it's not already
+  hsi_rt$time <- Sys.time()
+  hsi_rt$date <- Sys.Date()
+  # Add Weekday column (1 for Mon, 2 for Tue, ..., 7 for Sun)
+  hsi_rt <- hsi_rt %>%
+  mutate(Weekday = as.integer(format(date, "%u")))
+  hsi_rt <- hsi_rt %>%
+  mutate(bd = round((c - o) / (h - l),2))  # Adjust column names if needed
+  hsi_rt <- hsi_rt %>%
+  mutate(bp = round( ((c + o)/2 -l)  / (h - l),2))  # Adjust column names if needed
+  return(hsi_rt)
+}
+
+
 getET_ohlc=function () 
 {
     library(rvest)
