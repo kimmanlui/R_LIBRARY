@@ -79,6 +79,17 @@ standardName=function (db, shrink = 1)
     return(db)
 }
 
+# Function to determine background color
+highlight_odd <- function(x) {
+  ifelse(x > 0.75, 
+         "background-color: green; color: white;", 
+         ifelse(x < 0.25, 
+                "background-color: red; color: white;", 
+                ""))
+}
+# Create the formatted table using formattable
+
+
 getMethodText=function() 
 {
   return("方法")
