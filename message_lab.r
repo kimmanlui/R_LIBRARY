@@ -1,33 +1,5 @@
 
-getEnglishMsg=function(res, message='')
-{
-    upcnt=0
-    downcnt=0
-    if  (any (as.vector( res[ grepl(">=", res$Prediction), 'Odd']<0.25) ))
-    {
-        message=paste0(message,"\nthere is a low chance it will go up. \n")
-        downcnt=downcnt+1
-    }
-    if  (any (as.vector(res[grepl(">=", res$Prediction), 'Odd']>0.75) ))
-    {
-        message=paste0(message,"\nThere is a high chance it will go up.\n")
-        upcnt=upcnt+1
-    }
-    if  (any (as.vector(res[grepl("<=", res$Prediction), 'Odd']<0.25) ))
-    {
-        message=paste0(message,"\nthere is a low chance it will go down. \n")
-        upcnt=upcnt+1
-    }
-    if  (any (as.vector(res[grepl("<=", res$Prediction), 'Odd']>0.75) ))
-    {
-        message=paste0(message,"\nThere is a high chance it will go down. \n")
-        downcnt=downcnt+1
-    }
-   if (downcnt==0 && upcnt==0) message='There is no clear or useful forecast.'
-     if (downcnt>0 && upcnt>0) message='The price may fluctuate within a narrow range'
-    print(message)
-    return(message)
-}
+
 
 getChineseMsg=function(res, messageV='', type='message', lowerV=0.25, upperV=0.75)
 {
@@ -89,20 +61,21 @@ getChineseMsg=function(res, messageV='', type='message', lowerV=0.25, upperV=0.7
 	return(messageV)
 }
 
-standardName=function(db, shrink=1)
-{   #c( old -> new)
-    namelist=list(c('targetcond','Prediction'), 
-                  c('Pb','Odd'), c('hit', 'CN'), c('total','tot'), c('odd', 'Odd')
-                  )
-    for (i in 1:length(namelist))
-    {
-        oldname=namelist[[i]][1]
-        newname=namelist[[i]][2]
-      if (oldname %in% names(db)) 
-                db <- db %>% rename(`:=`(!!newname, all_of(oldname)))
+standardName=function (db, shrink = 1) 
+{
+    namelist = list(c("targetcond", "Prediction"), c("Pb", "Odd"), 
+        c("hit", "CN"), c("total", "Tot"), c("odd", "Odd"))
+    for (i in 1:length(namelist)) {
+        oldname = namelist[[i]][1]
+        newname = namelist[[i]][2]
+        if (oldname %in% names(db)) 
+            db <- db %>% rename(`:=`(!!newname, all_of(oldname)))
     }
-    if (shrink==1) db=db[, c('Prediction','Odd','CN','Tot')]
-    rownames(db)=NULL
+    print("----------")
+    print(db)
+    if (shrink == 1) 
+        db = db[, c("Prediction", "Odd", "CN", "Tot")]
+    rownames(db) = NULL
     return(db)
 }
 
