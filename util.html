@@ -1,0 +1,1071 @@
+<!DOCTYPE html>
+<!-- saved from url=(0014)about:internet -->
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+
+<title>util.R</title>
+
+<style type="text/css">
+body, td {
+   font-family: sans-serif;
+   background-color: white;
+   font-size: 12px;
+   margin: 8px;
+}
+
+tt, code, pre {
+   font-family: 'DejaVu Sans Mono', 'Droid Sans Mono', 'Lucida Console', Consolas, Monaco, monospace;
+}
+
+h1 { 
+   font-size:2.2em; 
+}
+
+h2 { 
+   font-size:1.8em; 
+}
+
+h3 { 
+   font-size:1.4em; 
+}
+
+h4 { 
+   font-size:1.0em; 
+}
+
+h5 { 
+   font-size:0.9em; 
+}
+
+h6 { 
+   font-size:0.8em; 
+}
+
+a:visited {
+   color: rgb(50%, 0%, 50%);
+}
+
+pre {	
+   margin-top: 0;
+   max-width: 95%;
+   border: 1px solid #ccc;
+   white-space: pre-wrap;
+}
+
+pre code {
+   display: block; padding: 0.5em;
+}
+
+code.r, code.cpp {
+   background-color: #F8F8F8;
+}
+
+table, td, th {
+  border: none;
+}
+
+blockquote {
+   color:#666666;
+   margin:0;
+   padding-left: 1em;
+   border-left: 0.5em #EEE solid;
+}
+
+hr {
+   height: 0px;
+   border-bottom: none;
+   border-top-width: thin;
+   border-top-style: dotted;
+   border-top-color: #999999;
+}
+
+@media print {
+   * { 
+      background: transparent !important; 
+      color: black !important; 
+      filter:none !important; 
+      -ms-filter: none !important; 
+   }
+
+   body { 
+      font-size:12pt; 
+      max-width:100%; 
+   }
+       
+   a, a:visited { 
+      text-decoration: underline; 
+   }
+
+   hr { 
+      visibility: hidden;
+      page-break-before: always;
+   }
+
+   pre, blockquote { 
+      padding-right: 1em; 
+      page-break-inside: avoid; 
+   }
+
+   tr, img { 
+      page-break-inside: avoid; 
+   }
+
+   img { 
+      max-width: 100% !important; 
+   }
+
+   @page :left { 
+      margin: 15mm 20mm 15mm 10mm; 
+   }
+     
+   @page :right { 
+      margin: 15mm 10mm 15mm 20mm; 
+   }
+
+   p, h2, h3 { 
+      orphans: 3; widows: 3; 
+   }
+
+   h2, h3 { 
+      page-break-after: avoid; 
+   }
+}
+
+</style>
+
+<!-- Styles for R syntax highlighter -->
+<style type="text/css">
+   pre .operator,
+   pre .paren {
+     color: rgb(104, 118, 135)
+   }
+
+   pre .literal {
+     color: rgb(88, 72, 246)
+   }
+
+   pre .number {
+     color: rgb(0, 0, 205);
+   }
+
+   pre .comment {
+     color: rgb(76, 136, 107);
+   }
+
+   pre .keyword {
+     color: rgb(0, 0, 255);
+   }
+
+   pre .identifier {
+     color: rgb(0, 0, 0);
+   }
+
+   pre .string {
+     color: rgb(3, 106, 7);
+   }
+</style>
+
+<!-- R syntax highlighter -->
+<script type="text/javascript">
+var hljs=new function(){function m(p){return p.replace(/&/gm,"&amp;").replace(/</gm,"&lt;")}function f(r,q,p){return RegExp(q,"m"+(r.cI?"i":"")+(p?"g":""))}function b(r){for(var p=0;p<r.childNodes.length;p++){var q=r.childNodes[p];if(q.nodeName=="CODE"){return q}if(!(q.nodeType==3&&q.nodeValue.match(/\s+/))){break}}}function h(t,s){var p="";for(var r=0;r<t.childNodes.length;r++){if(t.childNodes[r].nodeType==3){var q=t.childNodes[r].nodeValue;if(s){q=q.replace(/\n/g,"")}p+=q}else{if(t.childNodes[r].nodeName=="BR"){p+="\n"}else{p+=h(t.childNodes[r])}}}if(/MSIE [678]/.test(navigator.userAgent)){p=p.replace(/\r/g,"\n")}return p}function a(s){var r=s.className.split(/\s+/);r=r.concat(s.parentNode.className.split(/\s+/));for(var q=0;q<r.length;q++){var p=r[q].replace(/^language-/,"");if(e[p]){return p}}}function c(q){var p=[];(function(s,t){for(var r=0;r<s.childNodes.length;r++){if(s.childNodes[r].nodeType==3){t+=s.childNodes[r].nodeValue.length}else{if(s.childNodes[r].nodeName=="BR"){t+=1}else{if(s.childNodes[r].nodeType==1){p.push({event:"start",offset:t,node:s.childNodes[r]});t=arguments.callee(s.childNodes[r],t);p.push({event:"stop",offset:t,node:s.childNodes[r]})}}}}return t})(q,0);return p}function k(y,w,x){var q=0;var z="";var s=[];function u(){if(y.length&&w.length){if(y[0].offset!=w[0].offset){return(y[0].offset<w[0].offset)?y:w}else{return w[0].event=="start"?y:w}}else{return y.length?y:w}}function t(D){var A="<"+D.nodeName.toLowerCase();for(var B=0;B<D.attributes.length;B++){var C=D.attributes[B];A+=" "+C.nodeName.toLowerCase();if(C.value!==undefined&&C.value!==false&&C.value!==null){A+='="'+m(C.value)+'"'}}return A+">"}while(y.length||w.length){var v=u().splice(0,1)[0];z+=m(x.substr(q,v.offset-q));q=v.offset;if(v.event=="start"){z+=t(v.node);s.push(v.node)}else{if(v.event=="stop"){var p,r=s.length;do{r--;p=s[r];z+=("</"+p.nodeName.toLowerCase()+">")}while(p!=v.node);s.splice(r,1);while(r<s.length){z+=t(s[r]);r++}}}}return z+m(x.substr(q))}function j(){function q(x,y,v){if(x.compiled){return}var u;var s=[];if(x.k){x.lR=f(y,x.l||hljs.IR,true);for(var w in x.k){if(!x.k.hasOwnProperty(w)){continue}if(x.k[w] instanceof Object){u=x.k[w]}else{u=x.k;w="keyword"}for(var r in u){if(!u.hasOwnProperty(r)){continue}x.k[r]=[w,u[r]];s.push(r)}}}if(!v){if(x.bWK){x.b="\\b("+s.join("|")+")\\s"}x.bR=f(y,x.b?x.b:"\\B|\\b");if(!x.e&&!x.eW){x.e="\\B|\\b"}if(x.e){x.eR=f(y,x.e)}}if(x.i){x.iR=f(y,x.i)}if(x.r===undefined){x.r=1}if(!x.c){x.c=[]}x.compiled=true;for(var t=0;t<x.c.length;t++){if(x.c[t]=="self"){x.c[t]=x}q(x.c[t],y,false)}if(x.starts){q(x.starts,y,false)}}for(var p in e){if(!e.hasOwnProperty(p)){continue}q(e[p].dM,e[p],true)}}function d(B,C){if(!j.called){j();j.called=true}function q(r,M){for(var L=0;L<M.c.length;L++){if((M.c[L].bR.exec(r)||[null])[0]==r){return M.c[L]}}}function v(L,r){if(D[L].e&&D[L].eR.test(r)){return 1}if(D[L].eW){var M=v(L-1,r);return M?M+1:0}return 0}function w(r,L){return L.i&&L.iR.test(r)}function K(N,O){var M=[];for(var L=0;L<N.c.length;L++){M.push(N.c[L].b)}var r=D.length-1;do{if(D[r].e){M.push(D[r].e)}r--}while(D[r+1].eW);if(N.i){M.push(N.i)}return f(O,M.join("|"),true)}function p(M,L){var N=D[D.length-1];if(!N.t){N.t=K(N,E)}N.t.lastIndex=L;var r=N.t.exec(M);return r?[M.substr(L,r.index-L),r[0],false]:[M.substr(L),"",true]}function z(N,r){var L=E.cI?r[0].toLowerCase():r[0];var M=N.k[L];if(M&&M instanceof Array){return M}return false}function F(L,P){L=m(L);if(!P.k){return L}var r="";var O=0;P.lR.lastIndex=0;var M=P.lR.exec(L);while(M){r+=L.substr(O,M.index-O);var N=z(P,M);if(N){x+=N[1];r+='<span class="'+N[0]+'">'+M[0]+"</span>"}else{r+=M[0]}O=P.lR.lastIndex;M=P.lR.exec(L)}return r+L.substr(O,L.length-O)}function J(L,M){if(M.sL&&e[M.sL]){var r=d(M.sL,L);x+=r.keyword_count;return r.value}else{return F(L,M)}}function I(M,r){var L=M.cN?'<span class="'+M.cN+'">':"";if(M.rB){y+=L;M.buffer=""}else{if(M.eB){y+=m(r)+L;M.buffer=""}else{y+=L;M.buffer=r}}D.push(M);A+=M.r}function G(N,M,Q){var R=D[D.length-1];if(Q){y+=J(R.buffer+N,R);return false}var P=q(M,R);if(P){y+=J(R.buffer+N,R);I(P,M);return P.rB}var L=v(D.length-1,M);if(L){var O=R.cN?"</span>":"";if(R.rE){y+=J(R.buffer+N,R)+O}else{if(R.eE){y+=J(R.buffer+N,R)+O+m(M)}else{y+=J(R.buffer+N+M,R)+O}}while(L>1){O=D[D.length-2].cN?"</span>":"";y+=O;L--;D.length--}var r=D[D.length-1];D.length--;D[D.length-1].buffer="";if(r.starts){I(r.starts,"")}return R.rE}if(w(M,R)){throw"Illegal"}}var E=e[B];var D=[E.dM];var A=0;var x=0;var y="";try{var s,u=0;E.dM.buffer="";do{s=p(C,u);var t=G(s[0],s[1],s[2]);u+=s[0].length;if(!t){u+=s[1].length}}while(!s[2]);if(D.length>1){throw"Illegal"}return{r:A,keyword_count:x,value:y}}catch(H){if(H=="Illegal"){return{r:0,keyword_count:0,value:m(C)}}else{throw H}}}function g(t){var p={keyword_count:0,r:0,value:m(t)};var r=p;for(var q in e){if(!e.hasOwnProperty(q)){continue}var s=d(q,t);s.language=q;if(s.keyword_count+s.r>r.keyword_count+r.r){r=s}if(s.keyword_count+s.r>p.keyword_count+p.r){r=p;p=s}}if(r.language){p.second_best=r}return p}function i(r,q,p){if(q){r=r.replace(/^((<[^>]+>|\t)+)/gm,function(t,w,v,u){return w.replace(/\t/g,q)})}if(p){r=r.replace(/\n/g,"<br>")}return r}function n(t,w,r){var x=h(t,r);var v=a(t);var y,s;if(v){y=d(v,x)}else{return}var q=c(t);if(q.length){s=document.createElement("pre");s.innerHTML=y.value;y.value=k(q,c(s),x)}y.value=i(y.value,w,r);var u=t.className;if(!u.match("(\\s|^)(language-)?"+v+"(\\s|$)")){u=u?(u+" "+v):v}if(/MSIE [678]/.test(navigator.userAgent)&&t.tagName=="CODE"&&t.parentNode.tagName=="PRE"){s=t.parentNode;var p=document.createElement("div");p.innerHTML="<pre><code>"+y.value+"</code></pre>";t=p.firstChild.firstChild;p.firstChild.cN=s.cN;s.parentNode.replaceChild(p.firstChild,s)}else{t.innerHTML=y.value}t.className=u;t.result={language:v,kw:y.keyword_count,re:y.r};if(y.second_best){t.second_best={language:y.second_best.language,kw:y.second_best.keyword_count,re:y.second_best.r}}}function o(){if(o.called){return}o.called=true;var r=document.getElementsByTagName("pre");for(var p=0;p<r.length;p++){var q=b(r[p]);if(q){n(q,hljs.tabReplace)}}}function l(){if(window.addEventListener){window.addEventListener("DOMContentLoaded",o,false);window.addEventListener("load",o,false)}else{if(window.attachEvent){window.attachEvent("onload",o)}else{window.onload=o}}}var e={};this.LANGUAGES=e;this.highlight=d;this.highlightAuto=g;this.fixMarkup=i;this.highlightBlock=n;this.initHighlighting=o;this.initHighlightingOnLoad=l;this.IR="[a-zA-Z][a-zA-Z0-9_]*";this.UIR="[a-zA-Z_][a-zA-Z0-9_]*";this.NR="\\b\\d+(\\.\\d+)?";this.CNR="\\b(0[xX][a-fA-F0-9]+|(\\d+(\\.\\d*)?|\\.\\d+)([eE][-+]?\\d+)?)";this.BNR="\\b(0b[01]+)";this.RSR="!|!=|!==|%|%=|&|&&|&=|\\*|\\*=|\\+|\\+=|,|\\.|-|-=|/|/=|:|;|<|<<|<<=|<=|=|==|===|>|>=|>>|>>=|>>>|>>>=|\\?|\\[|\\{|\\(|\\^|\\^=|\\||\\|=|\\|\\||~";this.ER="(?![\\s\\S])";this.BE={b:"\\\\.",r:0};this.ASM={cN:"string",b:"'",e:"'",i:"\\n",c:[this.BE],r:0};this.QSM={cN:"string",b:'"',e:'"',i:"\\n",c:[this.BE],r:0};this.CLCM={cN:"comment",b:"//",e:"$"};this.CBLCLM={cN:"comment",b:"/\\*",e:"\\*/"};this.HCM={cN:"comment",b:"#",e:"$"};this.NM={cN:"number",b:this.NR,r:0};this.CNM={cN:"number",b:this.CNR,r:0};this.BNM={cN:"number",b:this.BNR,r:0};this.inherit=function(r,s){var p={};for(var q in r){p[q]=r[q]}if(s){for(var q in s){p[q]=s[q]}}return p}}();hljs.LANGUAGES.cpp=function(){var a={keyword:{"false":1,"int":1,"float":1,"while":1,"private":1,"char":1,"catch":1,"export":1,virtual:1,operator:2,sizeof:2,dynamic_cast:2,typedef:2,const_cast:2,"const":1,struct:1,"for":1,static_cast:2,union:1,namespace:1,unsigned:1,"long":1,"throw":1,"volatile":2,"static":1,"protected":1,bool:1,template:1,mutable:1,"if":1,"public":1,friend:2,"do":1,"return":1,"goto":1,auto:1,"void":2,"enum":1,"else":1,"break":1,"new":1,extern:1,using:1,"true":1,"class":1,asm:1,"case":1,typeid:1,"short":1,reinterpret_cast:2,"default":1,"double":1,register:1,explicit:1,signed:1,typename:1,"try":1,"this":1,"switch":1,"continue":1,wchar_t:1,inline:1,"delete":1,alignof:1,char16_t:1,char32_t:1,constexpr:1,decltype:1,noexcept:1,nullptr:1,static_assert:1,thread_local:1,restrict:1,_Bool:1,complex:1},built_in:{std:1,string:1,cin:1,cout:1,cerr:1,clog:1,stringstream:1,istringstream:1,ostringstream:1,auto_ptr:1,deque:1,list:1,queue:1,stack:1,vector:1,map:1,set:1,bitset:1,multiset:1,multimap:1,unordered_set:1,unordered_map:1,unordered_multiset:1,unordered_multimap:1,array:1,shared_ptr:1}};return{dM:{k:a,i:"</",c:[hljs.CLCM,hljs.CBLCLM,hljs.QSM,{cN:"string",b:"'\\\\?.",e:"'",i:"."},{cN:"number",b:"\\b(\\d+(\\.\\d*)?|\\.\\d+)(u|U|l|L|ul|UL|f|F)"},hljs.CNM,{cN:"preprocessor",b:"#",e:"$"},{cN:"stl_container",b:"\\b(deque|list|queue|stack|vector|map|set|bitset|multiset|multimap|unordered_map|unordered_set|unordered_multiset|unordered_multimap|array)\\s*<",e:">",k:a,r:10,c:["self"]}]}}}();hljs.LANGUAGES.r={dM:{c:[hljs.HCM,{cN:"number",b:"\\b0[xX][0-9a-fA-F]+[Li]?\\b",e:hljs.IMMEDIATE_RE,r:0},{cN:"number",b:"\\b\\d+(?:[eE][+\\-]?\\d*)?L\\b",e:hljs.IMMEDIATE_RE,r:0},{cN:"number",b:"\\b\\d+\\.(?!\\d)(?:i\\b)?",e:hljs.IMMEDIATE_RE,r:1},{cN:"number",b:"\\b\\d+(?:\\.\\d*)?(?:[eE][+\\-]?\\d*)?i?\\b",e:hljs.IMMEDIATE_RE,r:0},{cN:"number",b:"\\.\\d+(?:[eE][+\\-]?\\d*)?i?\\b",e:hljs.IMMEDIATE_RE,r:1},{cN:"keyword",b:"(?:tryCatch|library|setGeneric|setGroupGeneric)\\b",e:hljs.IMMEDIATE_RE,r:10},{cN:"keyword",b:"\\.\\.\\.",e:hljs.IMMEDIATE_RE,r:10},{cN:"keyword",b:"\\.\\.\\d+(?![\\w.])",e:hljs.IMMEDIATE_RE,r:10},{cN:"keyword",b:"\\b(?:function)",e:hljs.IMMEDIATE_RE,r:2},{cN:"keyword",b:"(?:if|in|break|next|repeat|else|for|return|switch|while|try|stop|warning|require|attach|detach|source|setMethod|setClass)\\b",e:hljs.IMMEDIATE_RE,r:1},{cN:"literal",b:"(?:NA|NA_integer_|NA_real_|NA_character_|NA_complex_)\\b",e:hljs.IMMEDIATE_RE,r:10},{cN:"literal",b:"(?:NULL|TRUE|FALSE|T|F|Inf|NaN)\\b",e:hljs.IMMEDIATE_RE,r:1},{cN:"identifier",b:"[a-zA-Z.][a-zA-Z0-9._]*\\b",e:hljs.IMMEDIATE_RE,r:0},{cN:"operator",b:"<\\-(?!\\s*\\d)",e:hljs.IMMEDIATE_RE,r:2},{cN:"operator",b:"\\->|<\\-",e:hljs.IMMEDIATE_RE,r:1},{cN:"operator",b:"%%|~",e:hljs.IMMEDIATE_RE},{cN:"operator",b:">=|<=|==|!=|\\|\\||&&|=|\\+|\\-|\\*|/|\\^|>|<|!|&|\\||\\$|:",e:hljs.IMMEDIATE_RE,r:0},{cN:"operator",b:"%",e:"%",i:"\\n",r:1},{cN:"identifier",b:"`",e:"`",r:0},{cN:"string",b:'"',e:'"',c:[hljs.BE],r:0},{cN:"string",b:"'",e:"'",c:[hljs.BE],r:0},{cN:"paren",b:"[[({\\])}]",e:hljs.IMMEDIATE_RE,r:0}]}};
+hljs.initHighlightingOnLoad();
+</script>
+
+
+
+
+</head>
+
+<body>
+<!-- Automatically generated by RStudio [12861c30b10411e1afa60800200c9a66] -->
+
+<h3>util.R</h3>
+
+<p>admin &mdash; <em>Apr 27, 2014, 12:16 PM</em></p>
+
+<pre><code class="r"># Mac
+# source(&quot;/Users/admin/Documents/_shared/util.R&quot;)
+# Windows (depends on notebook or polyuMachine)
+# source(&quot;...//desktop//public//_shared//util.R&quot;)
+# source(&quot;http://geogle.comp.polyu.edu.hk/R/_shared/util.R&quot;)
+# Note: you need to revise the path location 
+# for mail() and shot() on your machine
+#
+library(quantmod)
+</code></pre>
+
+<pre><code>Loading required package: Defaults
+Loading required package: xts
+Loading required package: zoo
+
+Attaching package: &#39;zoo&#39;
+
+The following object is masked from &#39;package:base&#39;:
+
+    as.Date, as.Date.numeric
+
+Loading required package: TTR
+Version 0.4-0 included new data defaults. See ?getSymbols.
+</code></pre>
+
+<pre><code class="r">
+getHSIComponent=function()
+{
+  asset_hsi=c(&quot;0001.HK&quot;,&quot;0002.HK&quot;,&quot;0003.HK&quot;,&quot;0004.HK&quot;,&quot;0005.HK&quot;, &quot;0006.HK&quot;,&quot;0011.HK&quot;,&quot;0012.HK&quot;,&quot;0013.HK&quot;,&quot;0016.HK&quot;,
+              &quot;0017.HK&quot;,&quot;0019.HK&quot;,&quot;0023.HK&quot;,&quot;0027.HK&quot;,&quot;0066.HK&quot;,&quot;0083.HK&quot;, &quot;0101.HK&quot;,&quot;0135.HK&quot;,&quot;0144.HK&quot;,&quot;0151.HK&quot;,
+              &quot;0267.HK&quot;,&quot;0291.HK&quot;,&quot;0293.HK&quot;,&quot;0322.HK&quot;,&quot;0386.HK&quot;, &quot;0388.HK&quot;,&quot;0494.HK&quot;,&quot;0688.HK&quot;,&quot;0700.HK&quot;,&quot;0762.HK&quot;,
+              &quot;0836.HK&quot;,&quot;0857.HK&quot;,&quot;0883.HK&quot;,&quot;0939.HK&quot;,&quot;0941.HK&quot;, &quot;0992.HK&quot;,&quot;1044.HK&quot;,&quot;1088.HK&quot;,&quot;1109.HK&quot;,&quot;1199.HK&quot;,
+              &quot;1299.HK&quot;,&quot;1398.HK&quot;,&quot;1880.HK&quot;,&quot;1898.HK&quot;,&quot;1928.HK&quot;, &quot;2318.HK&quot;,&quot;2388.HK&quot;,&quot;2628.HK&quot;,&quot;3328.HK&quot;,&quot;3988.HK&quot;,
+              &quot;0992.HK&quot;,&quot;2319.HK&quot;)
+  return (asset_hsi)
+}
+
+isMac=function() { drive=&quot;/Users/admin&quot;; return(file.exists(drive)) }
+isCloud=function() { drive=&quot;/net/nas20/rcloud_data&quot;; return(file.exists(drive))}
+isSagemath=function() { drive=&quot;/mnt/home&quot;; return(file.exists(drive))}
+isPolyu=function() { drive=&quot;C://Users//polyu&quot;;  return(file.exists(drive))}
+isLenovo=function() { drive=&quot;C://Users//lenovo&quot;;  return(file.exists(drive))}
+
+getBootstrapBand=function(code=&quot;^hsi&quot;, 
+                          from=&quot;2013-01-01&quot;, to=Sys.Date(),width=10)
+{
+  # util.R
+  s=loadData(code)
+  s=subset(s, v!=0)
+  s=subset(s, as.Date(from)&lt;=index(s) &amp; index(s)&lt;=to)
+  b=xtsToDf(s)
+  DX=4; 
+  rp=rollapply(b[,DX],FUN=bootsmean, width=width, align=&quot;right&quot;)
+  nrowdiff=nrow(b)-nrow(rp)
+  df=data.frame(date=b$date, bu=c(rep(NA,nrowdiff),rp[,2]),bl=c(rep(NA,nrowdiff),rp[,1])) 
+  retV=dfToXts(df)
+  return(retV) 
+}
+
+bootsmean=function(x)
+{ 
+  # util.R
+  if (class(x)==&quot;numeric&quot; &amp;&amp; !(any(x!=x[1])))   return( c(x[1], x[1]))
+  bmean &lt;- function(x, d) return(mean(x[d]))
+  #x = c(10,20,30,40,50,23,45,67,89,23)
+  b=boot(x , statistic=bmean , R=50)
+  ci = boot.ci(b, type=&quot;basic&quot;)
+  ci$basic[4:5]
+}
+
+
+rbindlist.df=function(...)
+{
+  require(data.table)
+  return (data.frame(rbindlist(list(...))))
+}
+
+cumrollapply=function(data, width, FUN,fill=NULL, align=&quot;center&quot;)
+{
+  if (!(align==&quot;center&quot;|| align==&quot;right&quot; || align==&quot;left&quot;)) stop(&quot;error for align&quot;)
+  if (!(is.na(fill) || is.null(fill))) stop(&quot;error for fill&quot;)
+  FUN &lt;- match.fun(FUN)
+  trow=(nrow(data)-width+1)
+  for (k in 1:(ncol(data)))
+  {
+    for (i in 1:trow )
+    {
+        index=NULL
+        j=i+width-1
+        r=FUN(data[i:j,k])
+        if (align==&quot;left&quot;) index=i 
+        if (align==&quot;right&quot;) index=j 
+        if (align==&quot;center&quot;) index=round((i+j)/2)
+        data[index,k]=r
+        if (i==1 &amp;&amp; i&lt;index) data[i:(index-1),k]=NA
+        if (i==trow &amp;&amp; nrow(data)&gt;index) data[(index+1):(nrow(data)),k]=NA
+    }
+  }
+  if (is.null(fill)) na.omit(data)
+  return(data)
+}
+
+getPrice=function(code)
+{
+  require(XML)
+  link = paste(&quot;http://www.aastocks.com/en/ltp/rtquote.aspx?symbol=&quot;,code,sep=&quot;&quot;)
+  tables &lt;- readHTMLTable(link)
+  #str(tables)  #this line is used to understand where the data is
+  print(tables[[12]])
+}
+
+is.na.data.frame=function (x) 
+{
+  if (class(x)!=&quot;data.frame&quot;) stop(&quot;x is not a data.frame&quot;)
+  y &lt;- do.call(&quot;cbind&quot;, lapply(x, &quot;is.na&quot;))
+  if (.row_names_info(x) &gt; 0L) 
+    rownames(y) &lt;- row.names(x)
+  any(y)
+}
+#d=data.frame(a=c(1,2,3,4,2,2), b=c(1,2,3,6,5,6), d=c(1,2,3,2,5,6))
+#is.na.data.frame(d)
+
+
+timelog=function() {
+  tz=Sys.timezone()
+  if (&quot;GMT&quot;==tz || isCloud())
+  {
+    H=format(Sys.time(), &quot;%H&quot;)
+    M=format(Sys.time(), &quot;%M&quot;)
+    H=(as.numeric(H)+8)%%24 
+    return( paste(H,&quot;:&quot;,M,sep=&quot;&quot;))    
+  }
+  if (&quot;PST&quot;==tz || isSagemath())
+  {
+    H=format(Sys.time(), &quot;%H&quot;)
+    M=format(Sys.time(), &quot;%M&quot;)
+    H=(as.numeric(H)+16)%%24 
+    return( paste(H,&quot;:&quot;,M,sep=&quot;&quot;))    
+  }
+
+  return(format(Sys.time(), &quot;%H:%M&quot;))
+}
+
+isTradingTime=function()
+{
+  wd=format(Sys.time(), &quot;%w&quot;) #sunday is 0
+  nw=format(Sys.time(), &quot;%H%M&quot;)
+  nwd=as.numeric(wd)
+  nnw=as.numeric(nw)
+  if (930&lt;nnw &amp;&amp; nnw&lt;1700 &amp;&amp; wd!=0 &amp;&amp; wd!=6) return (TRUE)
+  return (FALSE)
+}
+
+
+handle=function(FUN, ..., errorValue=-999)
+{
+  FUN &lt;- match.fun(FUN)
+  tryCatch(FUN(...), error = function(e) {print(paste(&quot;handle:&quot;,e)); return(errorValue)}, finally=function() {retV} ) 
+}
+
+averageRun=function(FUN, ..., repeater=2, errorV=-999)
+{
+  avgV=NULL
+  for (i in 1: repeater)
+  {
+    thisPerf=NA
+    tmp=NULL  #revised on 10/11/2013
+    tmp=handle(FUN, ..., errorValue=errorV)
+    if (is.null(tmp)) return(errorV)
+    if (class(tmp)==&quot;list&quot;) thisPerf=tmp[[1]][1]
+    if (class(tmp)!=&quot;list&quot; &amp;&amp; -999==tmp) thisPerf=tmp
+    avgV=c(avgV, thisPerf)
+    print(paste(timelog(),&quot;averageRun(&quot;, i,&quot;):&quot;,  thisPerf) )
+  }
+  if (is.null(avgV)) return (errorV)
+  if (all(is.na(avgV))) return (errorV)
+  print(avgV)
+  tmp=mean(avgV, na.rm=TRUE)
+  if (is.na(tmp)) return (errorV)
+  return(tmp)
+} 
+
+isnot.na=function(x) !is.na(x)
+
+isnot.null=function(x) !is.null(x)
+
+System.out.print=function(...)
+{
+  print(paste(...))
+}
+System.out.println=function(...)
+{
+  print(paste(...))
+}
+
+
+
+
+xtsToDf=function(s.xts)
+{
+  s.df=as.data.frame(s.xts)
+  s.df$date=as.Date(rownames( s.df))
+  return(s.df)
+}
+
+dfToXts=function(df)
+{
+  n=names(df)
+  if (any(n==&quot;date&quot;)==FALSE) 
+  {
+    print(&quot;there is no &#39;date&#39; column&quot;)
+    return (NULL)
+  }
+  idx=which(n==&quot;date&quot;)
+  retV=as.xts(df[,-idx], order.by=(df[,idx]))
+  return(retV)
+}
+
+
+self=function(x)  #utility
+{
+  if (length(x)==1) return(x[1])
+
+  pos=strtoi(x[1])+1
+  return(x[pos])
+}
+
+renameList=function(x, old, new)
+{
+  # e.g. tp=data.frame(a=1, b=2, oldColName=3)
+  #      names(tp)=renameList(tp, &quot;oldColName&quot;,&quot;newColName&quot; )
+  idx=which(names(x)==old)
+  allNames=names(x) 
+  allNames[idx]=new
+  return(allNames)
+}
+
+
+addColumn=function(x, colVectorIndex, ind ,na.rm = FALSE ) 
+{ # for dataframe ; not for xts
+  # 22 July
+  #Example of dataframe
+#   a=data.frame(); a=rbind(a, data.frame(a=1, b=2, c=3))
+#   a=rbind(a, data.frame(a=2, b=3, c=8)); a=rbind(a, data.frame(a=3, b=4, c=9))
+#   addColumn(a, c(2,3), -1)
+#   addColumn(a, c(2,3), -1, na.rm=TRUE)
+  for (i in 1:length(colVectorIndex))
+  {
+    colName=colVectorIndex[i]
+    if (is.numeric(colName))
+    {
+      xc=colName
+      colName=colnames(x[xc])
+    }
+    xc=which(colnames(x)==colName)
+    if (ind&lt;0)
+    {
+      newColName=paste(colName,&quot;N&quot;, abs(ind), sep=&quot;&quot;)
+      x[newColName]=c(x[ind,xc],rep(NA,abs(ind)))
+    }
+    if (ind&gt;0)
+    {
+      newColName=paste(colName,&quot;P&quot;, abs(ind), sep=&quot;&quot;)
+      x[newColName]=c(rep(NA,abs(ind)), x[c(1: (nrow(x)-ind)),xc])
+    }    
+  }
+  if ( TRUE==na.rm ) { x=subset(x, !is.na( x[ , newColName]))}
+  return (x)
+} 
+
+getPara=function(key)
+{
+  fileLocation=&quot;para.RData&quot;
+  fileNotFound=FALSE
+  if (file.exists(fileLocation)==FALSE)  fileNotFound=TRUE
+  if (TRUE==fileNotFound ) stop(&quot;(UNEXPECTED) Paramenter File Not Found&quot;)
+  load(file=&quot;para.RData&quot;)
+  totalRecord=length(paraKey)
+  for (i in 1: totalRecord) if (key == paraKey[[i]]) return(paraValue[[i]])
+  stop(&quot;(UNEXPECTED) Paramenter Key Not Found&quot;)
+}
+
+setPara=function(key, value, reset=FALSE)
+{
+  paraKey=list()
+  paraValue=list()
+  fileNotFound=FALSE
+  fileLocation=&quot;para.RData&quot;
+  if (file.exists(fileLocation)==FALSE)  fileNotFound=TRUE
+  if ( TRUE==fileNotFound  || TRUE==reset )
+  {
+    paraKey[[1]]   = key
+    paraValue[[1]] = value
+    save(paraKey, paraValue, file=&quot;para.RData&quot;)
+  } else
+  {
+    load(file=&quot;para.RData&quot;)
+    totalRecord=length(paraKey)
+    for (i in 1: totalRecord)
+    {
+      if (key == paraKey[[i]]) 
+      {
+        paraValue[[i]]=value
+        save(paraKey, paraValue, file=&quot;para.RData&quot;)
+        return(0)
+      }
+    }
+    paraKey[[(totalRecord+1)]]=key
+    paraValue[[(totalRecord+1)]]=value
+    save(paraKey, paraValue, file=&quot;para.RData&quot;)
+    return(1)
+  }
+}
+
+
+
+
+startTimer=function() {globalPtm &lt;&lt;- proc.time() }
+
+stopTimer= function() 
+{
+  elapsed=c(hour=(proc.time()-globalPtm)[3])
+  if (isPolyu()) return(elapsed/3600)
+  if (isLenovo()) return(elapsed/3600)
+  if (isMac()) return(elapsed/3600)
+  if (isCloud()) return(elapsed/3600)
+  return(elapsed/3600)
+}
+
+
+shot=function()
+{
+  if (isMac()) pngFile=&quot;/Users/admin/Pictures/screenShot.png&quot;
+   else pngFile=&quot;C://Users//homa//Pictures//screenShot.png&quot;
+  dev.copy(png, pngFile)
+  dev.off()
+  return (pngFile)
+}
+
+tips=function(...)
+{
+  mail(..., tips=TRUE)
+}
+
+mail=function(subject=&quot;hello world&quot;, pic=NULL, body=c(0,0,0,0), tips=FALSE)
+{
+  #v3
+  fileL=NULL
+  if (isMac()) 
+  {
+    if (body==c(0,0,0,0)) body=data.frame(from=1,t=timelog())
+    fileL=&quot;/Users/admin/Documents/_shared/tmp_email.txt&quot;
+    dailymail_exe=&quot;/Users/admin/Documents/StockAnalysis/app/StockMail/dailymail.sh &quot;
+    mailtips_exe=&quot;/Users/admin/Documents/StockAnalysis/app/StockMail/mailtips.sh &quot;
+  }
+  if (isPolyu()) 
+  {
+    if (body==c(0,0,0,0)) body=c(from=2,t=timelog())
+    polyuMachine=&quot;C://Documents and Settings//Administrator//Desktop//public//_shared&quot;
+    polyuMachine=&quot;C://Docume~1//Administrator//Desktop//public//_shared&quot;
+    fileL=paste(polyuMachine,&quot;//tmp_email.txt&quot;,sep=&quot;&quot;)
+    dailymail_exe=&quot;C://kimman//StockAnalysis//app//StockMail//dailymail.bat &quot;
+    mailtips_exe =&quot;C://kimman//StockAnalysis//app//StockMail//mailtips.bat &quot;    
+  }
+  if (isLenovo() )
+  {
+    if (body==c(0,0,0,0)) body=c(from=3,t=timelog())
+    fileL=&quot;C://Users//homa//Desktop//public//_shared//tmp_email.txt&quot; 
+    dailymail_exe=&quot;C://kimman//StockAnalysis//app//StockMail//dailymail.bat &quot;
+    mailtips_exe =&quot;C://kimman//StockAnalysis//app//StockMail//mailtips.bat &quot;  
+  }
+  if (is.null(fileL)) stop(&quot;cannot recognize the machine&quot;)
+
+  cat(subject, file=fileL,sep=&quot;\n&quot;)
+  if (class(body)==&quot;matrix&quot; || class(body)==&quot;data.frame&quot;)  
+  {
+    write.table(format(body,justify=&quot;none&quot;), file=fileL, append=TRUE)
+  } else cat(body, file=fileL, append=TRUE)
+  commandString=paste(dailymail_exe, fileL)
+  if (TRUE==tips) commandString=paste( mailtips_exe , fileL)
+  if (is.null(pic)==FALSE)  commandString=paste(commandString, &quot; &quot;, pic)
+  system(commandString)
+}
+
+mail_old=function(subject=&quot;hello world&quot;, pic=NULL, body=c(0,0,0,0), tips=FALSE)
+{
+  #v3
+  fileL=NULL
+  if (isMac()) 
+  {
+    body=data.frame(from=1,t=timelog())
+    fileL=&quot;/Users/admin/Documents/_shared/tmp_email.txt&quot;
+    dailymail_exe=&quot;/Users/admin/Documents/StockAnalysis/app/StockMail/dailymail.sh &quot;
+    mailtips_exe=&quot;/Users/admin/Documents/StockAnalysis/app/StockMail/mailtips.sh &quot;
+  }
+  if (isPolyu()) 
+  {
+    body=c(from=2,t=timelog())
+    polyuMachine=&quot;C://Documents and Settings//Administrator//Desktop//public//_shared&quot;
+    polyuMachine=&quot;C://Docume~1//Administrator//Desktop//public//_shared&quot;
+    fileL=paste(polyuMachine,&quot;//tmp_email.txt&quot;,sep=&quot;&quot;)
+    dailymail_exe=&quot;C://kimman//StockAnalysis//app//StockMail//dailymail.bat &quot;
+    mailtips_exe =&quot;C://kimman//StockAnalysis//app//StockMail//mailtips.bat &quot;    
+  }
+  if (isLenovo() )
+  {
+    body=c(from=3,t=timelog())
+    fileL=&quot;C://Users//homa//Desktop//public//_shared//tmp_email.txt&quot; 
+    dailymail_exe=&quot;C://kimman//StockAnalysis//app//StockMail//dailymail.bat &quot;
+    mailtips_exe =&quot;C://kimman//StockAnalysis//app//StockMail//mailtips.bat &quot;  
+  }
+  if (is.null(fileL)) stop(&quot;cannot recognize the machine&quot;)
+
+  cat(subject, file=fileL,sep=&quot;\n&quot;)
+  if (class(body)==&quot;matrix&quot; || class(body)==&quot;data.frame&quot;)  
+  {
+    write.table(body, file=fileL, append=TRUE)
+  } else cat(body, file=fileL, append=TRUE)
+  commandString=paste(dailymail_exe, fileL)
+  if (TRUE==tips) commandString=paste( mailtips_exe , fileL)
+  if (is.null(pic)==FALSE)  commandString=paste(commandString, &quot; &quot;, pic)
+
+  system(commandString)
+}
+
+
+
+isDefined=function(nameObj)
+{
+  varName=ls(name = &quot;.GlobalEnv&quot; )
+  if (any(nameObj==varName) ) return(TRUE)
+  return (FALSE)
+}
+
+getLongColumnName=function(xts)
+{
+  colnames(xts)[1]=&quot;Open&quot;
+  colnames(xts)[2]=&quot;High&quot;
+  colnames(xts)[3]=&quot;Low&quot;
+  colnames(xts)[4]=&quot;Close&quot;
+  colnames(xts)[5]=&quot;Volume&quot;
+  colnames(xts)[6]=&quot;Adjusted&quot;
+  return(xts)
+}
+
+clearMemory=function()
+{
+  stockNameListForMachineUse&lt;&lt;-NULL
+  stockDataListForMachineUse&lt;&lt;-NULL  
+}
+
+
+loadData=function(stockCode, downloadFlag=FALSE, dirPath=&quot;default&quot;, realtime=FALSE,  
+                  from=as.Date(&quot;2010-01-01&quot;), to=Sys.Date(), abbr=TRUE)
+{
+  if (dirPath==&quot;default&quot;)
+  {
+    if (isMac()) 
+    {
+      # dirPath=&quot;/Users/admin/Documents/_shared/&quot;
+      dirPath=&quot;/Users/admin/Documents/Dropbox/_data/&quot;
+      if (isCloud()) dirPath=&quot;&quot;
+    }
+    else   
+    {
+
+      #polyuMachine=&quot;C://Documents and Settings//Administrator//Desktop//public//_shared&quot;
+      #notebookMachine=&quot;C://Users//homa//Desktop//public//_shared&quot;
+      polyuMachine=&quot;C://Documents and Settings//Administrator//Desktop//public//Dropbox//_data//&quot;
+      notebookMachine=&quot;C://Users//homa//Dropbox//_data//&quot; 
+      if (file.exists(polyuMachine))
+      {
+        dirPath=polyuMachine
+      } else if (file.exists(notebookMachine))
+      {
+        dirPath=notebookMachine
+      } else
+      {
+        dirPath=&quot;&quot;
+      }
+    }
+  }
+
+  stockCode=tolower(stockCode)
+  stockC=paste(dirPath, stockCode, &quot;.RData&quot;, sep=&quot;&quot;) 
+
+  if (file.exists(stockC) &amp; downloadFlag==FALSE &amp; realtime==TRUE)
+  {
+    #remove the record from memory if it is there
+    if (isDefined(&quot;stockNameListForMachineUse&quot;) &amp;&amp;
+          isDefined(&quot;stockNameListForMachineUse&quot;) &amp;&amp; 
+          0!=length(stockNameListForMachineUse) )
+    {
+      for (i in 1:length(stockNameListForMachineUse))
+      {
+        if (stockCode==stockNameListForMachineUse[[i]])
+        {
+          stockNameListForMachineUse[[i]]&lt;&lt;-NULL
+          stockDataListForMachineUse[[i]]&lt;&lt;-NULL
+          break
+        }
+      }
+    } else
+    {
+      stockNameListForMachineUse &lt;&lt;- list()
+      stockDataListForMachineUse &lt;&lt;- list()
+    }
+    load(file=stockC)
+    rt=getQuote(stockCode)
+    rt.df=data.frame(o=rt[,5], h=rt[,6],l=rt[,7],c=rt[,2],
+                     v=rt[,8],a=rt[,2],
+                     date=as.Date(format( rt[,1] , format=&quot;%Y-%m-%d&quot;)))
+    if (rt.df$v[1]==0) rt.df$v[1]=1
+    rt.ts=xts(rt.df[,1:6], rt.df$date)
+    s=subset(s, time(s)!=rt.df$date[1])
+    if ( !any(time(rt.ts)==time(s)) ) 
+    { 
+      s=rbind(s, rt.ts)
+    }
+    totalEle=length(stockNameListForMachineUse)
+    stockNameListForMachineUse[[(totalEle+1)]] &lt;&lt;- stockCode
+    stockDataListForMachineUse[[(totalEle+1)]] &lt;&lt;- s
+    names(s)=c(&quot;o&quot;, &quot;h&quot;, &quot;l&quot;, &quot;c&quot;, &quot;v&quot;, &quot;a&quot;)
+    save(s,file=stockC )  
+    s=subset(s, index(s)&lt;=to)  # added on 2014-2
+    if (abbr!=TRUE) names(s)=c(&quot;Open&quot;,&quot;High&quot;,&quot;Low&quot;,&quot;Close&quot;,&quot;Volume&quot;,&quot;Adjusted&quot;)
+    s=subset(s, from&lt;= index(s) &amp; index(s) &lt;=to)
+    return (s)
+  }
+
+  if (downloadFlag==FALSE &amp;&amp; isDefined(&quot;stockNameListForMachineUse&quot;) &amp;&amp;
+        isDefined(&quot;stockNameListForMachineUse&quot;) &amp;&amp; 0!=length(stockNameListForMachineUse) )
+  {
+    #print(&quot;search memory&quot;)  #debug
+    for (i in 1:length(stockNameListForMachineUse))
+    {
+      if (stockCode==stockNameListForMachineUse[[i]])
+      { 
+        #print(&quot;got from memory&quot;)  #debug
+        names( stockDataListForMachineUse[[i]] )=c(&quot;o&quot;, &quot;h&quot;, &quot;l&quot;, &quot;c&quot;, &quot;v&quot;, &quot;a&quot;)
+        s=stockDataListForMachineUse[[i]]
+        s=subset(s, index(s)&lt;=to)  # added on 2014-2
+        if (abbr!=TRUE) names(s)=c(&quot;Open&quot;,&quot;High&quot;,&quot;Low&quot;,&quot;Close&quot;,&quot;Volume&quot;,&quot;Adjusted&quot;)
+        s=subset(s, from&lt;= index(s) &amp; index(s) &lt;=to)
+        return (s)
+      }
+    }
+  } else
+  {
+    stockNameListForMachineUse &lt;&lt;- list()
+    stockDataListForMachineUse &lt;&lt;- list()
+  }
+
+
+  if (file.exists(stockC) &amp; downloadFlag==FALSE) {
+    #print(&quot;got from file&quot;) #debug
+    load(file=stockC)
+  } else
+  {
+    #print(&quot;got from internet&quot;) #debug  
+    # stockCode=&quot;0001.HK&quot;
+    #fromD=as.Date(&quot;2010-01-01&quot;)
+    fromD=from
+    if (tolower(stockCode)==&quot;^hsi&quot;) fromD=as.Date(&quot;2005-01-01&quot;)
+    s=getSymbols(stockCode, from=fromD, auto.assign=FALSE)
+    names(s)=c(&quot;o&quot;, &quot;h&quot;, &quot;l&quot;, &quot;c&quot;, &quot;v&quot;, &quot;a&quot;)
+
+    if (realtime==TRUE)
+    {
+      rt=getQuote(stockCode)
+      rt.df=data.frame(o=rt[,5], h=rt[,6],l=rt[,7],c=rt[,2],
+                       v=rt[,8],a=rt[,2],
+                       date=as.Date(format( rt[,1] , format=&quot;%Y-%m-%d&quot;)))
+      if ( rt.df$v[1]!=&quot;N/A&quot;  )
+      {
+        if (rt.df$v[1]==0) rt.df$v[1]=1
+        rt.ts=xts(rt.df[,1:6], rt.df$date)
+        if ( !any(time(rt.ts)==time(s)) ) 
+        { 
+          s=rbind(s, rt.ts)
+        }
+      }
+    }
+    save(s,file=stockC )
+  }
+  totalEle=length(stockNameListForMachineUse)
+  stockNameListForMachineUse[[(totalEle+1)]] &lt;&lt;- stockCode
+  stockDataListForMachineUse[[(totalEle+1)]] &lt;&lt;- s
+  names(s)=c(&quot;o&quot;, &quot;h&quot;, &quot;l&quot;, &quot;c&quot;, &quot;v&quot;, &quot;a&quot;)
+  s=subset(s, index(s)&lt;=to)  # added on 2014-2
+  if (abbr!=TRUE) names(s)=c(&quot;Open&quot;,&quot;High&quot;,&quot;Low&quot;,&quot;Close&quot;,&quot;Volume&quot;,&quot;Adjusted&quot;)
+  s=subset(s, from&lt;= index(s) &amp; index(s) &lt;=to)
+  return (s)
+}
+
+
+
+realtimeLoad=function(asset_all= NULL)
+{
+  clearMemory()
+  printMessage=TRUE
+  if (is.null(asset_all))
+  {
+    #asset_all=c(&quot;^HSI&quot;, &quot;^SSEC&quot;, getHSIComponent())  
+    asset_all=c(&quot;^HSI&quot;,  getHSIComponent())  
+  } 
+
+  for (i in 1 : length(asset_all))
+  {
+    print(asset_all[i])
+    s=loadData(asset_all[i])
+    maxDate=max(time(s))
+    secondMaxDate=max(subset(time(s), time(s)!=maxDate))
+    diffD=maxDate-secondMaxDate
+
+    sdate=Sys.Date()
+    if (  weekdays(as.Date(sdate))==&quot;Saturday&quot; ) sdate=sdate-1
+    if (  weekdays(as.Date(sdate))==&quot;Sunday&quot; ) sdate=sdate-2
+
+
+    if (is.na(maxDate)==FALSE &amp;&amp;  (sdate-maxDate)&lt;=2 &amp;&amp; diffD&lt;6)
+    {
+      if (TRUE==printMessage) { print(&quot;clear memory and reload to memory&quot;); printMessage=FALSE}
+      downloadFlag=FALSE
+    } else
+    {
+      if (TRUE==printMessage) { print(&quot;clear memory and re-download&quot;); printMessage=FALSE}
+      downloadFlag=TRUE
+    }
+    retry=1
+    repeat{
+      s=handle(FUN=&quot;loadData&quot;,stockCode=asset_all[i],  downloadFlag=downloadFlag, realtime=TRUE)
+      if(  class(s)[1]==&quot;xts&quot; ){ break }
+      if( retry==3) {
+        print(paste(&quot;fail to reload &quot;, asset_all[i]))
+        break
+      }
+      retry=retry+1
+      Sys.sleep(9)
+    }
+    if (downloadFlag==TRUE) Sys.sleep(1)
+  }  
+}
+
+
+
+
+refreshLoad=function(asset_all= NULL )
+{
+  if (is.null(asset_all)) asset_all=c(&quot;^HSI&quot;, &quot;^SSEC&quot;, getHSIComponent())    
+  for (i in 1 : length(asset_all))
+  {
+    print(asset_all[i])
+    retry=1
+    repeat{
+      s=handle(FUN=&quot;loadData&quot;,stockCode=asset_all[i],  downloadFlag=TRUE)
+      if(  class(s)[1]==&quot;xts&quot; ){ break }
+      if( retry==3) {
+        print(paste(&quot;fail to reload &quot;, asset_all[i]))
+        break
+      }
+      retry=retry+1
+      Sys.sleep(9)
+    }
+    Sys.sleep(1)
+  }  
+}
+
+logging=function(textMessage)
+{
+  if (tolower(textMessage)!=&quot;clear&quot;) 
+  {
+    cat(textMessage,file=&quot;^log.txt&quot;, sep=&quot;\n&quot;, append=TRUE)  
+  }
+  else 
+  {
+    cat(&quot;&quot;,file=&quot;^log.txt&quot;, append=FALSE)
+  } 
+}  
+
+limitDataSet=function(asset_all=NULL, to=NULL)
+{
+  print(&quot;Use only for debug&quot;)
+  dirPath=&quot;default&quot;
+  if (dirPath==&quot;default&quot;)
+  {
+    if (isMac()) 
+    {
+      # dirPath=&quot;/Users/admin/Documents/_shared/&quot;
+      dirPath=&quot;/Users/admin/Documents/Dropbox/_data/&quot;
+
+      if (isCloud()) dirPath=&quot;&quot;
+    }
+    else   
+    {
+      #polyuMachine=&quot;C://Documents and Settings//Administrator//Desktop//public//_shared&quot;
+      #notebookMachine=&quot;C://Users//homa//Desktop//public//_shared&quot;
+      polyuMachine=&quot;C://Documents and Settings//Administrator//Desktop//public//Dropbox//_data//&quot;
+      notebookMachine=&quot;C://Users//homa//Dropbox//_data//&quot; 
+      if (file.exists(polyuMachine))
+      {
+        dirPath=polyuMachine
+      } else if (file.exists(notebookMachine))
+      {
+        dirPath=notebookMachine
+      } else
+      {
+        dirPath=&quot;&quot;
+      }
+    }
+  }
+
+  if (is.null(asset_all)) asset_all=c(&quot;^HSI&quot;, &quot;^SSEC&quot;, getHSIComponent())    
+
+  clearMemory()
+
+  for (i in 1 : length(asset_all))
+  {
+    s=loadData(asset_all[i])
+    s=subset(s, index(s)&lt;=to)
+
+    stockCode=tolower(asset_all[i])
+    stockC=paste(dirPath, stockCode, &quot;.RData&quot;, sep=&quot;&quot;) 
+    print(paste(&quot;save the data to&quot;,stockC))
+    save(s,file=stockC )  
+  }  
+  clearMemory()
+}
+
+convertYahooCode=function(iCode) {
+  if (9901==iCode)
+  {
+    yahooCode=&quot;^hsi&quot;
+  } else
+  {
+    code=paste(&quot;0000&quot;,iCode,&quot;.HK&quot;, sep=&quot;&quot;)
+    yahooCode=substr(code, nchar(code)-6 , nchar(code))
+  }
+  return ( yahooCode)
+}
+
+convertICode=function(yahooCode) {
+  if (tolower(yahooCode)==&quot;^hsi&quot;) iCode=9901 
+      else iCode=as.numeric(substr(yahooCode, 1 , 4))
+  return (iCode  ) 
+}
+
+rolloutGetStatus=function()
+{
+  REALTIME &lt;&lt;- FALSE
+  CHECKPERF &lt;&lt;- FALSE
+
+  if (file.exists(&quot;status_realtime&quot;)) REALTIME &lt;&lt;-TRUE
+  if (file.exists(&quot;status_checkperf&quot;)) CHECKPERF &lt;&lt;-TRUE
+}
+
+testMachineSpeed &lt;- function(n = 10000) 
+{
+  print(Sys.time())
+  ptm &lt;- proc.time()
+  # Purpose: Test if system.time works ok;   n: loop size
+  system.time(for(i in 1:n) x &lt;- mean(rt(10000, df = 4)))
+  print(Sys.time())
+  print(proc.time()-ptm)
+}  # from Internet R
+
+
+isAvaliableGetSymbols=function(Symbols)
+{
+  if (is.null(Symbols)) Symbols=&quot;^hsi&quot;
+  functionName=&quot;getSymbols&quot;
+  retV=handleWithGet(FUN=functionName, pos=&quot;package:quantmod&quot;, Symbols=Symbols, from=&quot;2013-01-02&quot;, to=&quot;2013-02-03&quot;, auto.assign=FALSE, errorValue=-999)
+  if (-999 ==  retV) return (FALSE)
+  return (TRUE)
+}
+
+handleWithGet=function(FUN, pos=-1, ..., errorValue=-999)
+{
+  FUN &lt;- get(FUN, pos=pos)
+  tryCatch(FUN(...), error = function(e) { return(errorValue)}, finally=function() {retV} ) 
+}
+
+
+getSymbols=function(Symbols=NULL, from=as.Date(&quot;2013-02-01&quot;), to=Sys.Date(), auto.assign=FALSE,...)
+{
+  if (isAvaliableGetSymbols(Symbols)) 
+  {
+    print(&quot;Use quantmod getSymbols&quot;)
+    return(quantmod::getSymbols(Symbols=Symbols, from=from, to=to, auto.assign=auto.assign,...))
+  }
+  print(&quot;Use My Own Version of getSymbols&quot;)
+  #Symbols=&quot;^hsi&quot;
+  #from=as.Date(&quot;2013-02-01&quot;)
+  #to=Sys.Date()
+  if (is.null(Symbols)) stop(&quot;Symbols not found&quot;)
+  fy=format(from, format=&quot;%Y&quot;)
+  fm=format(from, format=&quot;%M&quot;)
+  fd=format(from, format=&quot;%d&quot;)  
+  ty=format(to, format=&quot;%Y&quot;)
+  tm=format(to, format=&quot;%M&quot;)
+  td=format(to, format=&quot;%d&quot;)
+  a1=&quot;http://ichart.finance.yahoo.com/table.csv?s=&quot;
+  f1m=&quot;&amp;a=&quot;  #need minus 1 as 0 means Jan
+  f2d=&quot;&amp;b=&quot;  
+  f3y=&quot;&amp;c=&quot;
+  t1m=&quot;&amp;d=&quot;
+  t2d=&quot;&amp;e=&quot;
+  t2y=&quot;&amp;f=&quot;
+  a2=&quot;&amp;g=d&amp;ignore=.csv&quot;
+  url=paste(a1,Symbols, f1m,fm,f2d,fd,f3y,fy,t1m,tm,t2d,td,t2y,ty,a2,sep=&quot;&quot;)
+  q=read.csv(url)
+  qxts &lt;- xts(q[,-1], order.by=as.Date(q[,1]))
+  return(qxts)
+}
+
+waitFile=function(files, sleepSec=30, waitHowLongMin=45)
+{
+  checkFile=function(files, alreadyWait=0)
+  {
+    for (k in 1:length(files))
+    {
+      if (file.exists(files[k])==FALSE) 
+      {
+        print(paste(alreadyWait,&quot;min: wait for&quot;, files[k]))
+        return (FALSE)
+      }
+    }
+    return(TRUE)
+  }
+  iter= (waitHowLongMin * 60)/sleepSec
+  for (i in 1:iter)
+  {
+    haveWaited=round(((i-1)*sleepSec)/60,1)
+    if (checkFile(files, alreadyWait=haveWaited)==FALSE)   Sys.sleep(sleepSec)
+  }
+  if (checkFile(files)==FALSE) return (FALSE)
+  return (TRUE)
+}
+
+getMonth=function(from=&quot;2000-01-15&quot;, to=Sys.Date())
+{
+  s=loadData(&quot;^HSI&quot;)
+  mr=monthlyReturn(s)
+  period=xtsToDf(mr)
+  period$monthly.returns=NULL
+  period$to=c(period$date[-1],Sys.Date())
+  names(period)=c(&quot;from&quot;,&quot;to&quot;)
+  period=period[order(period$to,decreasing=TRUE ),]
+  period=period[ from&lt;=period$from &amp; period$to&lt;=to, ]
+  return(period)
+}
+
+synTime=function(curTime, atLeastSec=9)
+{
+  #atLeastSec must be greater than 3
+  min=as.numeric(format(curTime, &quot;%M&quot;))
+  while (min==as.numeric((format(Sys.time(), &quot;%M&quot;))))
+  {
+    Sys.sleep(3)    
+  }
+  while (atLeastSec&gt;=as.numeric((format(Sys.time(), &quot;%S&quot;))) )
+  {
+    Sys.sleep(1)  
+  }
+  return(Sys.time())
+}
+#curTime=Sys.time()
+#print(curTime)
+#for (i in 1:10) 
+#{
+#  curTime=synTime(curTime)
+#  print(curTime)
+#}
+
+
+print(&quot;... util.R (R verion 12/4/2014) loaded&quot;)
+</code></pre>
+
+<pre><code>[1] &quot;... util.R (R verion 12/4/2014) loaded&quot;
+</code></pre>
+
+</body>
+
+</html>
+
