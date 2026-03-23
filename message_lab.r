@@ -190,7 +190,7 @@ getPastPerfText=function(numday=0)
 
 getChineseTitle=function()
 {
-    msg='自家研發2.5'
+    msg='自家研發2.6'
 	return(msg)
 
 }
