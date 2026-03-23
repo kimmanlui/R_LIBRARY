@@ -46,7 +46,7 @@ getChineseMsg_OLD=function(res, messageV='', type='message', lowerV=0.25, upperV
         pattern=c(pattern,'-2')
 	}
 	if (downcnt==0 && upcnt==0) messageV='目前尚無明確或有用的預測。'
-    if (downcnt>0 && upcnt>0) messageV='價格可能在不大範圍內波動。'
+    if (downcnt>0 && upcnt>0) messageV='目前尚無明確或有用的預測。'
    
     expected=0 #Used for backtest
 
