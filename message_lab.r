@@ -5,7 +5,7 @@ getChineseMsg_OLD=function(res, messageV='', type='message', lowerV=0.25, upperV
 {
     upcnt=0
     downcnt=0
-    pattern=NULL
+    pattern=0
 
     M1TIME="[TIME]"
     if (any(grepl("pv.f1", res$Prediction))) M1TIME="今天"
