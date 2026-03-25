@@ -48,8 +48,6 @@ checkTestResultSingle=function(actual, expected)
      if (actual==-1 && grepl('not' , expected)) return(1)
     if (actual<=-2 && grepl('not 2' , expected)) return(1)
     if (actual>=2 && grepl('not -2' , expected)) return(1)
-    if (actual>=2 && expected>=2 ) return(1)
-    if (actual<=-2 && expected<=-2 ) return(1)
     return(0)
 }
 
