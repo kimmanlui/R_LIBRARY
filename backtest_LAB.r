@@ -1,3 +1,101 @@
+genTrafficLight_OLD=function(traffic_light)
+{
+    for (i in 1:length(traffic_light))
+    {
+        if (length(traffic_light[[i]])==2)
+        {
+            if (traffic_light[[i]][1]=='not 2' && traffic_light[[i]][2] == 'not -2') 
+            {
+                traffic_light[[i]]=gsub('###COLOR###', paste(LIGHTGRAY, YELLOW, LIGHTGRAY), TRAFFIC_LIGHT)
+                next
+            } else if (traffic_light[[i]][1]=='not -2' && traffic_light[[i]][2]=='not 2') 
+            {
+                traffic_light[[i]]=gsub('###COLOR###', paste(LIGHTGRAY, YELLOW, LIGHTGRAY), TRAFFIC_LIGHT)
+                next
+            }            
+        }
+        traffic_light[[i]]=sort(traffic_light[[i]] )
+        traffic_light[[i]]=  traffic_light[[i]][1]
+        
+      if (traffic_light[[i]]=='not 2')
+      { 
+          traffic_light[[i]]=gsub('###COLOR###', paste(RED, YELLOW, LIGHTGRAY), TRAFFIC_LIGHT)
+       } else if (traffic_light[[i]]=='2') 
+      {
+          traffic_light[[i]]=gsub('###COLOR###', paste(LIGHTGRAY, LIGHTGRAY, GREEN), TRAFFIC_LIGHT)
+       } else if (traffic_light[[i]]=='-2') 
+     {
+          traffic_light[[i]]=gsub('###COLOR###', paste(RED, LIGHTGRAY, LIGHTGRAY), TRAFFIC_LIGHT)
+    } else if (traffic_light[[i]]=='not -2')
+    {
+          traffic_light[[i]]=gsub('###COLOR###', paste(LIGHTGRAY, YELLOW, GREEN), TRAFFIC_LIGHT)
+    } else 
+        {
+          traffic_light[[i]]=gsub('###COLOR###', paste(LIGHTGRAY, LIGHTGRAY, LIGHTGRAY), TRAFFIC_LIGHT)
+        }
+    }
+    return(traffic_light)
+}
+
+
+
+
+
+
+
+
+
+genTrafficLight <- function(traffic_light) {
+  # Ensure it's a list to allow uniform processing
+  if (!is.list(traffic_light)) traffic_light <- as.list(traffic_light)
+
+  # helper to produce the replaced template
+  fill_template <- function(cols) {
+    gsub("###COLOR###", paste(cols, collapse = " "), TRAFFIC_LIGHT)
+  }
+
+  # map each element to the appropriate template string
+  result <- lapply(traffic_light, function(el) {
+    # make sure el is character
+    el <- as.character(el)
+
+    # handle two-element special cases (order-insensitive)
+    if (length(el) == 2) {
+      # use a set-like comparison (order-independent)
+      two_set <- sort(el)
+      # compare to known combos (sorted)
+      if (identical(two_set, sort(c("not 2", "not -2")))) {
+        return(fill_template(c(LIGHTGRAY, YELLOW, LIGHTGRAY)))
+      }
+      # add other two-element combos here if needed
+    }
+
+    # handle single-element cases (or fallback if length>1 non-matching)
+    val <- el[1]  # choose first element if vector length > 1 and not matched above
+    if (val == "not 2") {
+      fill_template(c(RED, YELLOW, LIGHTGRAY))
+    } else if (val == "2") {
+      fill_template(c(LIGHTGRAY, LIGHTGRAY, GREEN))
+    } else if (val == "-2") {
+      fill_template(c(RED, LIGHTGRAY, LIGHTGRAY))
+    } else if (val == "not -2") {
+      fill_template(c(LIGHTGRAY, YELLOW, GREEN))
+    } else {
+      fill_template(c(LIGHTGRAY, LIGHTGRAY, LIGHTGRAY))
+    }
+  })
+
+  # return same type as input: if original was a vector, return character vector
+  if (!is.list(traffic_light)) return(unlist(result))
+  result
+}
+
+
+
+
+
+
+
 checkdf_return_string=function (df, actualColname = "pv", expectColname = "expected", debug=0) 
 {
     df = df[order(df$date, decreasing = TRUE), ]
