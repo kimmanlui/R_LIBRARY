@@ -5,7 +5,7 @@ getChineseMsg=function(res, messageV='', type='message', lowerV=0.25, upperV=0.7
 {
     upcnt=0
     downcnt=0
-    pattern=0
+    pattern=NULL 
 
     M1TIME="[TIME]"
     if (any(grepl("pv.lg2.f2", res$Prediction))) 
@@ -72,9 +72,13 @@ getChineseMsg=function(res, messageV='', type='message', lowerV=0.25, upperV=0.7
     if (length(pattern)==1) expected=pattern
     if (length(pattern)>1 && downcnt==0) expected="2"
     if (length(pattern)>1 && upcnt==0) expected="-2"    
+	if (type == "pattern" && is.null(pattern)) {
+      pattern <- "0"
+    }
     if (type=='pattern') return (list(pattern=pattern,expected=expected))
     
 	if (type!='pattern') print(messageV)
+	
 	return(messageV)
 }
 
