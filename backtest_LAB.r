@@ -1,4 +1,4 @@
-plot_candle_for_df=function (df, n=20, width = 3,  height = 1.5) 
+plot_candle_for_df=function (df, n=20, width = 3,  height = 1.5, print_flag=0) 
 {
     vDate=tail(df$date,n=1)
     yyyymm = as.character(format(vDate, "%Y%m"))
@@ -19,7 +19,7 @@ plot_candle_for_df=function (df, n=20, width = 3,  height = 1.5)
         labs(title = paste(format(start_date, 
             "%Y-%m-%d"), "-", format(end_date, "%Y-%m-%d"))) + theme_minimal() + scale_fill_identity()
    
-    print(plot)
+    if (print_flag==1) print(plot)
     filenameV = paste0(getwd(),"/candlestick_plot_", yyyymm, ".png")
     ggsave(filename=filenameV, 
         plot = plot, width = width, height = height)
