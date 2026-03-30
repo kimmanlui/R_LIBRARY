@@ -20,7 +20,7 @@ plot_candle_for_df=function (df, n=20, width = 3,  height = 1.5)
             "%Y-%m-%d"), "-", format(end_date, "%Y-%m-%d"))) + theme_minimal() + scale_fill_identity()
    
     print(plot)
-    filenameV = paste0("candlestick_plot_", yyyymm, ".png")
+    filenameV = paste0(getwd(),"/candlestick_plot_", yyyymm, ".png")
     ggsave(filename=filenameV, 
         plot = plot, width = width, height = height)
     return(filenameV)
