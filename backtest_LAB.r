@@ -1,3 +1,32 @@
+plot_candle_for_df=function (df, n=20, width = 3,  height = 1.5) 
+{
+    vDate=tail(df$date,n=1)
+    yyyymm = as.character(format(vDate, "%Y%m"))
+    year <- as.numeric(substr(yyyymm, 1, 4))
+    month <- as.numeric(substr(yyyymm, 5, 6))
+    filtered_data <- tail(df, n=n)
+    start_date <- filtered_data$date[1]
+    end_date <- filtered_data$date[nrow(filtered_data)]
+ 
+    if (!all(c("o", "c", "h", "l") %in% colnames(filtered_data))) {
+        stop("Columns 'o', 'c', 'h', and 'l' must exist in the data frame.")
+    }
+
+    plot <- ggplot(filtered_data, aes(x = date)) + geom_segment(aes(x = date, 
+        xend = date, y = h, yend = l), color = "black") + geom_rect(aes(xmin = date - 
+        0.2, xmax = date + 0.2, ymin = pmin(o, c), ymax = pmax(o, 
+        c), fill = ifelse(c > o, "green", "red")), color = "black") + 
+        labs(title = paste(format(start_date, 
+            "%Y-%m-%d"), "-", format(end_date, "%Y-%m-%d"))) + theme_minimal() + scale_fill_identity()
+   
+    print(plot)
+    filenameV = paste0("candlestick_plot_", yyyymm, ".png")
+    ggsave(filename=filenameV, 
+        plot = plot, width = width, height = height)
+    return(filenameV)
+}
+
+
 genTrafficLight_OLD=function(traffic_light)
 {
     for (i in 1:length(traffic_light))
