@@ -21,3 +21,21 @@ showBasicInfo=function()
     cat(paste0("Working Directory: ", getwd(), '  \nR Verison:',R.version.string))
     cat("\nRemark: Use R.4.3.3 for FUJITSU\n")
 }
+
+loadImage <- function(imageFile = "./2025newStudy.RData") {
+    if (!file.exists(imageFile)) {
+    message("File not exists")
+    return(invisible(NULL))
+    }
+    loaded <- load(imageFile, envir = .GlobalEnv) # return names loaded
+    file_info <- file.info(imageFile)
+    mod_time <- file_info$mtime
+    if ("hsi_data" %in% loaded && exists("hsi_data", envir = .GlobalEnv)) {
+    n <- nrow(get("hsi_data", envir = .GlobalEnv))
+    } else {
+    n <- NA
+    }
+    message(sprintf("Modified time: %s, Nrow for hsi_data: %s", mod_time, n))
+    invisible(loaded)
+}
+
