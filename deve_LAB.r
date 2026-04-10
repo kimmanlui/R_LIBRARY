@@ -22,7 +22,7 @@ showBasicInfo=function()
     cat("\nRemark: Use R.4.3.3 for FUJITSU\n")
 }
 
-loadImage <- function(imageFile = "./2025newStudy.RData") {
+loadImage <- function(imageFile = "./RDATA/2025newStudy.RData") {
     if (!file.exists(imageFile)) {
     message("File not exists")
     return(invisible(NULL))
