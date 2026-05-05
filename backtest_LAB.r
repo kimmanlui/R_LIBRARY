@@ -27,53 +27,6 @@ plot_candle_for_df=function (df, n=20, width = 3,  height = 1.5, print_flag=0)
 }
 
 
-genTrafficLight_OLD=function(traffic_light)
-{
-    for (i in 1:length(traffic_light))
-    {
-        if (length(traffic_light[[i]])==2)
-        {
-            if (traffic_light[[i]][1]=='not 2' && traffic_light[[i]][2] == 'not -2') 
-            {
-                traffic_light[[i]]=gsub('###COLOR###', paste(LIGHTGRAY, YELLOW, LIGHTGRAY), TRAFFIC_LIGHT)
-                next
-            } else if (traffic_light[[i]][1]=='not -2' && traffic_light[[i]][2]=='not 2') 
-            {
-                traffic_light[[i]]=gsub('###COLOR###', paste(LIGHTGRAY, YELLOW, LIGHTGRAY), TRAFFIC_LIGHT)
-                next
-            }            
-        }
-        traffic_light[[i]]=sort(traffic_light[[i]] )
-        traffic_light[[i]]=  traffic_light[[i]][1]
-        
-      if (traffic_light[[i]]=='not 2')
-      { 
-          traffic_light[[i]]=gsub('###COLOR###', paste(RED, YELLOW, LIGHTGRAY), TRAFFIC_LIGHT)
-       } else if (traffic_light[[i]]=='2') 
-      {
-          traffic_light[[i]]=gsub('###COLOR###', paste(LIGHTGRAY, LIGHTGRAY, GREEN), TRAFFIC_LIGHT)
-       } else if (traffic_light[[i]]=='-2') 
-     {
-          traffic_light[[i]]=gsub('###COLOR###', paste(RED, LIGHTGRAY, LIGHTGRAY), TRAFFIC_LIGHT)
-    } else if (traffic_light[[i]]=='not -2')
-    {
-          traffic_light[[i]]=gsub('###COLOR###', paste(LIGHTGRAY, YELLOW, GREEN), TRAFFIC_LIGHT)
-    } else 
-        {
-          traffic_light[[i]]=gsub('###COLOR###', paste(LIGHTGRAY, LIGHTGRAY, LIGHTGRAY), TRAFFIC_LIGHT)
-        }
-    }
-    return(traffic_light)
-}
-
-
-
-
-
-
-
-
-
 genTrafficLight <- function(traffic_light) {
   # Ensure it's a list to allow uniform processing
   if (!is.list(traffic_light)) traffic_light <- as.list(traffic_light)
@@ -165,7 +118,7 @@ checkTestResult=function(df, actualColname='actual', expectedColname='expected')
     return(list(res, df)) 
 }
 
-checkTestResultSingle=function(actual, expected)
+checkTestResultSingleOLD=function(actual, expected)
 {
      if (expected==0) return(NA)
 
@@ -175,6 +128,27 @@ checkTestResultSingle=function(actual, expected)
      if (actual==-1 && grepl('not' , expected)) return(1)
     if (actual<=-2 && grepl('not 2' , expected)) return(1)
     if (actual>=2 && grepl('not -2' , expected)) return(1)
+    return(0)
+}
+
+checkTestResultSingle=function (actual, expected) 
+{
+    if (expected == 0) 
+        return(NA)
+    if (!grepl("not", expected) && as.numeric(actual) >= 2 && expected == 
+        2) 
+        return(1)
+    if (!grepl("not", expected) && as.numeric(actual) <= -2 && expected == 
+        -2) 
+        return(1)
+    if ( as.numeric(actual) == 1 && grepl("not", expected)) 
+        return(1)
+    if (as.numeric(actual) == -1 && grepl("not", expected)) 
+        return(1)
+    if (as.numeric(actual) <= -2 && grepl("not 2", expected)) 
+        return(1)
+    if (as.numeric(actual) >= 2 && grepl("not -2", expected)) 
+        return(1)
     return(0)
 }
 
